@@ -6,6 +6,12 @@ share_dir = os.path.join( "share", package_name )
 data_files = []
 data_files.append(( 'share/ament_index/resource_index/packages',  ['resource/' + package_name] ))
 data_files.append(( os.path.join( share_dir, 'launch' ),          glob.glob( "launch/*.py" ) ))  
+for venv_dir in ['venv_a', 'venv_b']:
+    for root, dirs, files in os.walk(venv_dir):
+        for file in files:
+            file_path = os.path.join(root, file)
+            install_path = os.path.join(share_dir, root)
+            data_files.append((install_path, [file_path]))
 data_files.append(( share_dir, ['package.xml'] ))
 
 setup(
